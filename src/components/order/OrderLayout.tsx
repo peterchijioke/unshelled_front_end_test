@@ -6,8 +6,8 @@ export default function OrderLayout({ ...props }) {
   const item: OrderInterface = props.item;
   return (
     <div className="order-layout-wrapper">
-      <h1>Order Details</h1>
       <div className="card-order">
+        <h1>Order Details</h1>
         <div className="wrap-txt">
           <span> Order ID: {item.id}</span>
         </div>
