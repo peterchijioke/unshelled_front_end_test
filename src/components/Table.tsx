@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./table.css";
 import { getOrderList } from "../services/Services";
 import { useNavigate } from "react-router-dom";
@@ -6,17 +6,26 @@ import { OrderInterface } from "../type";
 import LoadingElement from "./login/LoadingElement";
 
 export default function Table() {
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(false);
   const getOrderdList = async () => {
     setProgress(!progress);
-    const res: Response | any = await getOrderList(1, 10);
+    const res: Response | any = await getOrderList();
     if (res) {
-      setData(res.data.data);
-      setProgress(!progress);
+      if (res.status == 200 || res.data.data) {
+        setData(res.data.data);
+        setPageCount(res.data.offset);
+        setProgress(!progress);
+      }
+      console.log("===========================");
+      console.log(res.data.data);
     }
   };
+
   useEffect(() => {
     getOrderdList();
   }, []);
@@ -27,14 +36,19 @@ export default function Table() {
   const goToDetails = (item: OrderInterface) => {
     navigate(`/order/${item.id}`, { state: { item } });
   };
-  const handlePrev = () => {};
+  const handlePrev = () => {
+    setPage((prev) => {
+      if (prev == 1) return prev;
+      return prev - 1;
+    });
+  };
+
   const handleNext = async () => {
     setProgress(!progress);
-    const res: Response | any = await getOrderList(1, 10);
-    if (res) {
-      setData(res.data.data);
-      setProgress(!progress);
-    }
+    setPage((prev) => {
+      if (prev == pageCount) return prev;
+      return prev + 1;
+    });
   };
   return (
     <div
@@ -59,7 +73,7 @@ export default function Table() {
             <th>Action</th>
           </tr>
         </thead>
-        {progress && !data.length ? (
+        {progress ? (
           <>
             <LoadingElement />
           </>
@@ -82,8 +96,22 @@ export default function Table() {
         <div className="btn-wrap">
           <button style={{ marginRight: "10px" }} onClick={handlePrev}>
             Previous
-          </button>{" "}
-          <button onClick={handleNext}>Next</button>
+          </button>
+          <select
+            value={page}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              setPage(Number(e.target.value));
+            }}
+          >
+            {Array(pageCount)
+              .fill(null)
+              .map((_, index) => {
+                return <option key={Math.random()}>{index + 1}</option>;
+              })}
+          </select>
+          <button disabled={page === pageCount} onClick={handleNext}>
+            Next
+          </button>
         </div>
       </div>
     </div>
