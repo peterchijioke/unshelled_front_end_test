@@ -28,7 +28,7 @@ export default function Table() {
     navigate(`/order/${item.id}`, { state: { item } });
   };
   const handlePrev = () => {};
-  const handleNext = () => {
+  const handleNext = async () => {
     setProgress(!progress);
     const res: Response | any = await getOrderList(1, 10);
     if (res) {
