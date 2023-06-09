@@ -65,6 +65,10 @@ export default function Table() {
     } catch (error) {}
   };
 
+  const goToEditPage = (item: OrderInterface) => {
+    navigate(`/edit/${item.id}`, { state: { item } });
+  };
+
   return (
     <div
       style={{
@@ -114,6 +118,12 @@ export default function Table() {
                     className="delete-btn"
                     type="button"
                     value="View"
+                  />
+                  <input
+                    onClick={() => goToEditPage(item)}
+                    className="delete-btn"
+                    type="button"
+                    value="Edit"
                   />
                 </div>
               </td>
