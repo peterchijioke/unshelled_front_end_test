@@ -33,7 +33,6 @@ export default function LoginLayout() {
       localStorage.setItem("token", `${res.data.seller_id}`);
       setProgress(!progress);
       navigation("/home");
-      return;
     }
     setProgress(!progress);
   };

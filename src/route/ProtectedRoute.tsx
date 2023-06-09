@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ user }: { user: string | null }) => {
-  return user == null ? <Navigate to="/" /> : <Outlet />;
+const ProtectedRoute = () => {
+  const access_token: string | null = localStorage.getItem("token");
+  return access_token == null ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default ProtectedRoute;
