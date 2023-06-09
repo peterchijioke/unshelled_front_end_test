@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./table.css";
 import { getOrderList } from "../services/Services";
 import { useNavigate } from "react-router-dom";
+import { OrderInterface } from "../type";
 
 export default function Table() {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ export default function Table() {
     localStorage.removeItem("token");
     navigate("/");
   };
+  const goToDetails = (item: OrderInterface) => {
+    navigate(`/order/${item.id}`, { state: { item } });
+  };
   return (
     <div
       style={{
@@ -29,17 +33,7 @@ export default function Table() {
         flexDirection: "column",
       }}
     >
-      <button
-        onClick={onLogout}
-        style={{
-          width: 200,
-          margin: "1rem",
-          borderRadius: 5,
-          height: 45,
-          border: "none",
-          background: "#ddd",
-        }}
-      >
+      <button onClick={onLogout} style={styles.logout}>
         Logout
       </button>
       <table className="order-table">
@@ -54,7 +48,7 @@ export default function Table() {
         </thead>
         <tbody>
           {data.map((item: OrderInterface) => (
-            <tr>
+            <tr onClick={() => goToDetails(item)}>
               <td>{item.id}</td>
               <td>{item.product_id}</td>
               <td>{item.date}</td>
@@ -68,10 +62,13 @@ export default function Table() {
   );
 }
 
-interface OrderInterface {
-  id: number;
-  product_id: string;
-  product_category: string;
-  price: number;
-  date: string;
-}
+const styles = {
+  logout: {
+    width: 200,
+    margin: "1rem",
+    borderRadius: 5,
+    height: 45,
+    border: "none",
+    background: "#ddd",
+  },
+};

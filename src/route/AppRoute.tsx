@@ -14,7 +14,7 @@ function AppRoute(props: any) {
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<Home />} />
-        <Route path="/order:id" element={<OrderDetails />} />
+        <Route path="/order/:id" element={<OrderDetails />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />
       {props.children}
