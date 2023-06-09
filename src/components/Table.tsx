@@ -9,32 +9,28 @@ export default function Table() {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
 
+  const [limit, setLimit] = useState(0);
+
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(false);
-  const getOrderdList = async () => {
+  const getOrderdList = async (pageC?: number) => {
     setProgress(!progress);
-    const res: Response | any = await getOrderList();
+    const res: Response | any = await getOrderList(pageC);
     if (res) {
       if (res.status == 200 || res.data.data) {
         setData(res.data.data);
         setPageCount(res.data.offset);
+        setLimit(res.data.limit);
         setProgress(!progress);
       }
     }
   };
   useEffect(() => {
-    (async () => {
-      setProgress(!progress);
-      const res: Response | any = await getOrderList(page);
-      if (res) {
-        if (res.status == 200 || res.data.data) {
-          setData(res.data.data);
-          setPageCount(res.data.offset);
-          setProgress(!progress);
-        }
-      }
-    })();
+    getOrderList(page);
+    console.log("=================");
+    console.log(page);
+    console.log(pageCount);
   }, [page]);
 
   useEffect(() => {
@@ -105,13 +101,17 @@ export default function Table() {
       </table>
       <div style={styles.pg}>
         <div className="btn-wrap">
-          <button style={{ marginRight: "10px" }} onClick={handlePrev}>
+          <button
+            disabled={page == 1}
+            style={{ marginRight: "10px" }}
+            onClick={handlePrev}
+          >
             Previous
           </button>
           <select
             value={page}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-              setPage(Number(e.target.value));
+              console.log(Number(e.target.value));
             }}
           >
             {Array(pageCount)
@@ -120,7 +120,10 @@ export default function Table() {
                 return <option key={Math.random()}>{index + 1}</option>;
               })}
           </select>
-          <button disabled={page === pageCount} onClick={handleNext}>
+          <button
+            disabled={page === pageCount || pageCount < limit}
+            onClick={handleNext}
+          >
             Next
           </button>
         </div>
