@@ -5,7 +5,17 @@ import AuthRoute from "./AuthRoute";
 import LoginPage from "../pages/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
 
-function AppRoute() {
+function AppRoute(props: {
+  children:
+    | string
+    | number
+    | boolean
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+}) {
   const access_token: string | any = localStorage.getItem("token");
   return (
     <Routes>
@@ -15,6 +25,8 @@ function AppRoute() {
       <Route element={<ProtectedRoute user={access_token} />}>
         <Route path="/" element={<Home />} />
       </Route>
+      <Route path="*" element={<ErrorPage />} />
+      {props?.children}
     </Routes>
   );
 }
