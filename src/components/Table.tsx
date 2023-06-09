@@ -23,6 +23,19 @@ export default function Table() {
       }
     }
   };
+  useEffect(() => {
+    (async () => {
+      setProgress(!progress);
+      const res: Response | any = await getOrderList(page);
+      if (res) {
+        if (res.status == 200 || res.data.data) {
+          setData(res.data.data);
+          setPageCount(res.data.offset);
+          setProgress(!progress);
+        }
+      }
+    })();
+  }, [page]);
 
   useEffect(() => {
     getOrderdList();
