@@ -21,8 +21,6 @@ export default function Table() {
         setPageCount(res.data.offset);
         setProgress(!progress);
       }
-      console.log("===========================");
-      console.log(res.data.data);
     }
   };
 
