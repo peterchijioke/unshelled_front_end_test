@@ -5,6 +5,7 @@ import AuthRoute from "./AuthRoute";
 import LoginPage from "../pages/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderDetails from "../pages/OrderDetails";
+import EditDetails from "../pages/EditDetails";
 
 function AppRoute(props: any) {
   return (
@@ -15,6 +16,7 @@ function AppRoute(props: any) {
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<Home />} />
         <Route path="/order/:id" element={<OrderDetails />} />
+        <Route path="/edit/:id" element={<EditDetails />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />
       {props.children}

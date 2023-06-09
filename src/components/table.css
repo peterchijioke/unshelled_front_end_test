@@ -16,6 +16,7 @@
 
 .order-table tr:hover {
   background-color: #ddd;
+  cursor: pointer;
 }
 
 .order-table th {
@@ -25,3 +26,52 @@
   background-color: #133;
   color: white;
 }
+
+.wrap-txt {
+  padding: 5px;
+  margin: 1rem;
+  border-radius: 9px;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-wrap {
+  margin: 1rem;
+}
+button {
+  height: 45px;
+  border: none;
+  width: 200px;
+  background: #133;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+
+}
+
+button:hover {
+  background-color: #ccc;
+  color: #133;
+  border: 1px solid #133;
+
+}
+
+.delete-btn {
+  margin: 2px;
+  cursor: pointer;
+  z-index: 1000;
+  width: 50px;
+  
+}
+
+.delete-btn:hover {
+color: #ccc;
+  background: #133;
+}
+.logout{
+      margin: 1rem;
+      height: 45px;
+}
+.btn-wrap--{}

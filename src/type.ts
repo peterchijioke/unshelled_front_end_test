@@ -5,7 +5,7 @@ interface LoginData {
 }
 
 interface OrderInterface {
-  id: number;
+  id: string;
   product_id: string;
   product_category: string;
   price: number;

@@ -16,16 +16,3 @@ justify-content:center;
   display: flex;
   flex-direction: column;
 }
-.wrap-txt{
-padding: 5px;
-  margin: 1rem;
-  border-radius: 9px;
-  background-color: #f1f1f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-span{
-  
-  
-}
