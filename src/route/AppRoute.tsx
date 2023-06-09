@@ -7,17 +7,14 @@ function AppRoute() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="*"
-          element={
-            <div style={{ width: "100vw", height: "100vh" }}>
-              Page not found
-            </div>
-          }
-        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );
 }
+
+const ErrorPage = ({}) => (
+  <div style={{ width: "100vw", height: "100vh" }}>Page not found</div>
+);
 
 export default AppRoute;
