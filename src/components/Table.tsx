@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import "./table.css";
-import { getOrderList } from "../services/Services";
+import { deletOneOrder, getOrderList } from "../services/Services";
 import { useNavigate } from "react-router-dom";
 import { OrderInterface } from "../type";
 import LoadingElement from "./login/LoadingElement";
+import moment from "moment";
+import { trimText } from "../utils/Trim";
 
 export default function Table() {
   const [page, setPage] = useState(1);
@@ -16,7 +18,7 @@ export default function Table() {
   const [progress, setProgress] = useState(false);
   const getOrderdList = async (pageC?: number) => {
     setProgress(!progress);
-    const res: Response | any = await getOrderList(pageC);
+    const res: Response | any = await getOrderList(pageC ?? page);
     if (res) {
       if (res.status == 200 || res.data.data) {
         setData(res.data.data);
@@ -26,12 +28,6 @@ export default function Table() {
       }
     }
   };
-  useEffect(() => {
-    getOrderList(page);
-    console.log("=================");
-    console.log(page);
-    console.log(pageCount);
-  }, [page]);
 
   useEffect(() => {
     getOrderdList();
@@ -57,6 +53,14 @@ export default function Table() {
       return prev + 1;
     });
   };
+  const handleDelete = async (item: OrderInterface) => {
+    try {
+      const res: any = await deletOneOrder(item.id);
+      if (res) {
+        getOrderList();
+      }
+    } catch (error) {}
+  };
   return (
     <div
       style={{
@@ -80,24 +84,39 @@ export default function Table() {
             <th>Action</th>
           </tr>
         </thead>
-        {progress ? (
+        {/* {progress ? (
           <>
             <LoadingElement />
           </>
-        ) : (
-          <tbody>
-            {data.map((item: OrderInterface) => (
-              <tr onClick={() => goToDetails(item)}>
-                <td>{item.id}</td>
-                <td>{item.product_id}</td>
-                <td>{item.date}</td>
-                <td>{item.product_category}</td>
-                <td>{item.price}</td>
-                <td className="delete-btn">Delete</td>
-              </tr>
-            ))}
-          </tbody>
-        )}
+        ) : ( */}
+        <tbody>
+          {data.map((item: OrderInterface) => (
+            <tr>
+              <td>{trimText(item.id)}</td>
+              <td>{trimText(item.product_id)}</td>
+              <td>{moment(item.date).format("ll")}</td>
+              <td>{item.product_category}</td>
+              <td>{item.price}</td>
+              <td>
+                <div className="btn-wrap--">
+                  <input
+                    onClick={() => handleDelete(item)}
+                    className="delete-btn"
+                    type="button"
+                    value="Delete"
+                  />
+                  <input
+                    onClick={() => goToDetails(item)}
+                    className="delete-btn"
+                    type="button"
+                    value="View"
+                  />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        {/* )} */}
       </table>
       <div style={styles.pg}>
         <div className="btn-wrap">

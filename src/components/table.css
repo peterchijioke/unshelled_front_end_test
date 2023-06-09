@@ -61,6 +61,8 @@ button:hover {
 .delete-btn {
   margin: 2px;
   cursor: pointer;
+  z-index: 1000;
+  width: 50px;
   
 }
 
@@ -72,3 +74,4 @@ color: #ccc;
       margin: 1rem;
       height: 45px;
 }
+.btn-wrap--{}

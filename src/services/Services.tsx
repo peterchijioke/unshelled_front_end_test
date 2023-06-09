@@ -19,5 +19,9 @@ const loginService = async (data: LoginData) => {
     console.log(error.message);
   }
 };
+const deletOneOrder = async (orderID: string) => {
+  const res = await AxiosInstance.delete(`/order_items/${orderID}`);
+  return res;
+};
 
-export { getOrderList, loginService };
+export { getOrderList, loginService, deletOneOrder };
