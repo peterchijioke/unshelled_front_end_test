@@ -4,19 +4,21 @@ import Home from "../pages/Home";
 import AuthRoute from "./AuthRoute";
 import LoginPage from "../pages/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
+import OrderDetails from "../pages/OrderDetails";
 
 function AppRoute(props: any) {
-  const access_token: string | any = localStorage.getItem("token");
+  const access_token: string | null = localStorage.getItem("token");
   return (
     <Routes>
       <Route element={<AuthRoute user={access_token} />}>
         <Route path="/" element={<LoginPage />} />
       </Route>
       <Route element={<ProtectedRoute user={access_token} />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/order:id" element={<OrderDetails />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />
-      {props?.children}
+      {props.children}
     </Routes>
   );
 }
