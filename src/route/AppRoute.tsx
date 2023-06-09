@@ -1,15 +1,21 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
+import AuthRoute from "./AuthRoute";
+import LoginPage from "../pages/LoginPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoute() {
+  const access_token: string | any = localStorage.getItem("token");
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      <Route element={<AuthRoute user={access_token} />}>
+        <Route path="/" element={<LoginPage />} />
+      </Route>
+      <Route element={<ProtectedRoute user={access_token} />}>
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
+      </Route>
+    </Routes>
   );
 }
 
