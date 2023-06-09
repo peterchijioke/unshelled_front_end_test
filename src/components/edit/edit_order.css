@@ -1,0 +1,41 @@
+.order-layout-wrapper{
+width: 100%;
+height: 100vh;
+background: #ccc;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content:center;
+}
+
+.card-order{
+  width: 70%;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 5rem;
+}
+
+.edit-order-input{
+  height: 40px;
+  width: 100%;
+  background: #f1f1f1;
+  padding: 10px;
+  margin: 2px;
+  margin-top: 1rem;
+  border: 1px solid #133;
+}
+.save-btn{
+background: #ccc;
+color: #000;
+height: 40px;
+}
+.save-btn:hover{
+  background:#133;
+  color: #fff;
+  cursor: pointer;
+}
