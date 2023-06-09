@@ -45,7 +45,7 @@ export default function Table() {
         flexDirection: "column",
       }}
     >
-      <button onClick={onLogout} style={styles.logout}>
+      <button className="logout" onClick={onLogout}>
         Logout
       </button>
       <table className="order-table">
@@ -77,24 +77,19 @@ export default function Table() {
             ))}
           </tbody>
         )}
-        <tfoot>
-          <div className="btn-wrap">
-            <button onClick={handlePrev}>Previous</button>{" "}
-            <button onClick={handleNext}>Next</button>
-          </div>
-        </tfoot>
       </table>
+      <div style={styles.pg}>
+        <div className="btn-wrap">
+          <button style={{ marginRight: "10px" }} onClick={handlePrev}>
+            Previous
+          </button>{" "}
+          <button onClick={handleNext}>Next</button>
+        </div>
+      </div>
     </div>
   );
 }
 
 const styles = {
-  logout: {
-    width: 200,
-    margin: "1rem",
-    borderRadius: 5,
-    height: 45,
-    border: "none",
-    background: "#ddd",
-  },
+  pg: { width: "100%", display: "flex", justifyContent: "end" },
 };

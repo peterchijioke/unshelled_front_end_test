@@ -10,7 +10,7 @@ function authHeader() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer c0f3eea2e14555b6faeea3dd58c1b1c3e`,
+        Authorization: `Bearer ${access_token}`,
       },
     };
   } else {

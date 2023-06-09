@@ -1,7 +1,7 @@
 import { LoginData } from "../type";
 import AxiosInstance from "./AxiosInstance";
 
-const getOrderList = async (page: number, limit: number) => {
+const getOrderList = async (page: number | null, limit: number | null) => {
   try {
     const req = await AxiosInstance.get(
       `/order_items?page=${page ?? 1}&limit=${limit ?? 15}`
