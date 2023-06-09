@@ -31,7 +31,10 @@ export default function Table() {
 
   useEffect(() => {
     getOrderdList();
-  }, []);
+    return () => {
+      setData([]);
+    };
+  }, [navigate]);
   const onLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -61,6 +64,7 @@ export default function Table() {
       }
     } catch (error) {}
   };
+
   return (
     <div
       style={{
